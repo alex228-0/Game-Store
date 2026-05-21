@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nexus Games</title>
+    <link rel="stylesheet" href="/style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="#" class="logo">NEXUS<span>GAMES</span></a>
+        <div class="nav-links">
+          <a href="#" class="nav-link active" data-target="view-store">Магазин</a>
+          <a href="#" class="nav-link" data-target="view-library">Библиотека</a>
+          <a href="#" class="nav-link" data-target="view-community">Сообщество</a>
+        </div>
+        <div class="nav-actions">
+          <div class="search-bar">
+            <input type="text" placeholder="Поиск игр...">
+            <button class="search-btn">🔍</button>
+          </div>
+          <div class="cart-btn" id="cart-open-btn" title="Корзина">
+            🛒 <span id="cart-count" class="badge">0</span>
+          </div>
+          <div class="profile-btn nav-link" id="profile-btn" data-target="view-profile" title="Профиль">
+            <div class="avatar" id="header-avatar"></div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- VIEWS CONTAINER -->
+    <div id="app-views">
+      <!-- Store View -->
+      <div id="view-store" class="view-section active">
+        <!-- Hero Section -->
+        <header class="hero" id="hero-section">
+          <div class="hero-overlay"></div>
+          <div class="hero-content">
+            <span class="hero-tag">Рекомендуемое</span>
+            <h1 id="hero-title">Neon Cyberpunk 2077</h1>
+            <p id="hero-desc">Погрузитесь в огромный открытый мир будущего, где вы играете за кибер-наемника, ищущего бессмертие. Невероятная графика и нелинейный сюжет.</p>
+            <div class="hero-buttons">
+              <button class="btn btn-primary" id="buy-hero-btn">Купить сейчас - $59.99</button>
+              <button class="btn btn-secondary">В список желаемого</button>
+            </div>
+          </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="container">
+          <section class="store-section">
+            <div class="section-header">
+              <h2>Популярные новинки</h2>
+              <a href="#" class="view-all">Смотреть все</a>
+            </div>
+            <div class="game-grid" id="popular-games">
+              <!-- Game cards will be injected here by JS -->
+            </div>
+          </section>
+
+          <section class="store-section">
+            <div class="section-header">
+              <h2>Специальные предложения</h2>
+              <a href="#" class="view-all">Смотреть все</a>
+            </div>
+            <div class="game-grid" id="sale-games">
+              <!-- Game cards will be injected here by JS -->
+            </div>
+          </section>
+        </main>
+      </div>
+
+      <!-- Library View -->
+      <div id="view-library" class="view-section container" style="padding-top: 100px; min-height: 70vh;">
+        <div class="section-header">
+          <h2>Моя Библиотека</h2>
+        </div>
+        <div class="game-grid" id="library-games">
+          <!-- Library games will be injected here -->
+          <div class="empty-cart-message" style="grid-column: 1 / -1; text-align: left;">У вас пока нет купленных игр.</div>
+        </div>
+      </div>
+
+      <!-- Community View -->
+      <div id="view-community" class="view-section container" style="padding-top: 100px; min-height: 70vh;">
+        <div class="section-header">
+          <h2>Лента Сообщества</h2>
+        </div>
+        <div class="community-feed" id="community-feed">
+          <!-- Community posts will be injected here -->
+        </div>
+      </div>
+
+      <!-- Profile View -->
+      <div id="view-profile" class="view-section container" style="padding-top: 100px; min-height: 70vh;">
+        <div class="section-header">
+          <h2>Профиль пользователя</h2>
+        </div>
+        
+        <!-- Auth Form (Shown when logged out) -->
+        <div id="auth-container" style="max-width: 400px; margin: 0 auto; background: var(--surface-color); padding: 2rem; border-radius: 12px; border: 1px solid var(--glass-border);">
+          <div class="modal-header" style="margin-bottom: 2rem; text-align: center;">
+            <h2 id="profile-auth-title" style="color: var(--primary-color);">Вход</h2>
+            <p id="profile-auth-subtitle" style="color: var(--text-secondary); font-size: 0.9rem;">С возвращением в Nexus Games</p>
+          </div>
+          
+          <form id="profile-auth-form">
+            <div class="form-group" id="profile-name-group" style="display: none;">
+              <label for="profile-username">Имя пользователя</label>
+              <input type="text" id="profile-username" placeholder="Введите имя">
+            </div>
+            
+            <div class="form-group">
+              <label for="profile-email">Email</label>
+              <input type="email" id="profile-email" placeholder="example@nexus.com" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="profile-password">Пароль</label>
+              <input type="password" id="profile-password" placeholder="••••••••" required>
+            </div>
+            
+            <button type="submit" class="btn btn-primary w-100" id="submit-profile-auth-btn">Войти</button>
+          </form>
+          
+          <div class="modal-footer" style="text-align: center; margin-top: 1.5rem;">
+            <p id="toggle-profile-auth-text" style="color: var(--text-secondary); font-size: 0.9rem;">Нет аккаунта? <a href="#" id="toggle-profile-auth-btn" style="color: var(--secondary-color);">Зарегистрироваться</a></p>
+          </div>
+        </div>
+
+        <!-- User Info (Shown when logged in) -->
+        <div id="user-info-container" style="display: none; max-width: 800px; margin: 0 auto; background: var(--surface-color); padding: 3rem; border-radius: 16px; border: 1px solid var(--glass-border); position: relative; overflow: hidden;">
+          <!-- Decorative Background element -->
+          <div style="position: absolute; top: -50px; right: -50px; width: 200px; height: 200px; background: var(--primary-color); filter: blur(80px); opacity: 0.3; border-radius: 50%;"></div>
+          
+          <div style="display: flex; align-items: flex-start; gap: 2rem; flex-wrap: wrap; position: relative; z-index: 1;">
+            
+            <!-- Avatar Column -->
+            <div style="text-align: center; flex-shrink: 0;">
+              <div style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, var(--secondary-color), var(--primary-color)); margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 4rem; font-weight: bold; color: white; box-shadow: 0 0 20px rgba(176, 38, 255, 0.4);" id="user-big-avatar">U</div>
+              <div style="display: inline-block; background: rgba(0, 240, 255, 0.1); border: 1px solid var(--secondary-color); color: var(--secondary-color); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: bold;" id="user-level-badge">Уровень 1</div>
+            </div>
+
+            <!-- Details Column -->
+            <div style="flex-grow: 1;">
+              <h2 id="user-display-name" style="margin-bottom: 0.2rem; font-size: 2.5rem; text-shadow: 0 0 10px rgba(255,255,255,0.2);">Username</h2>
+              <p id="user-display-email" style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 1.1rem;">user@example.com</p>
+              
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; background: rgba(0,0,0,0.2); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+                <div>
+                  <div style="font-size: 2rem; font-weight: bold; color: var(--primary-color);" id="user-games-count">0</div>
+                  <div style="color: var(--text-secondary); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Игр куплено</div>
+                </div>
+                <div>
+                  <div style="font-size: 2rem; font-weight: bold; color: var(--secondary-color);" id="user-total-spent">$0.00</div>
+                  <div style="color: var(--text-secondary); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Потрачено</div>
+                </div>
+                <div>
+                  <div style="font-size: 1.2rem; font-weight: bold; color: white; margin-top: 0.5rem;" id="user-join-date">01.01.2026</div>
+                  <div style="color: var(--text-secondary); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.3rem;">На сайте с</div>
+                </div>
+              </div>
+              
+              <div style="display: flex; gap: 1rem;">
+                <button id="logout-btn" class="btn btn-secondary" style="border-color: #ff5555; color: #ff5555; margin-left: 0;">Выйти из аккаунта</button>
+                <button class="btn btn-secondary" style="margin-left: 0;" id="edit-profile-btn">Редактировать</button>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content container">
+        <div class="footer-col">
+          <h3>NEXUS<span>GAMES</span></h3>
+          <p>Лучший цифровой магазин для настоящих геймеров. Покупайте, играйте и наслаждайтесь.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Ссылки</h4>
+          <a href="#">О нас</a>
+          <a href="#">Поддержка</a>
+          <a href="#">Вакансии</a>
+        </div>
+        <div class="footer-col">
+          <h4>Правовая информация</h4>
+          <a href="#">Условия использования</a>
+          <a href="#">Политика конфиденциальности</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Nexus Games. Все права защищены.</p>
+      </div>
+    </footer>
+
+    <!-- Removed Auth Modal -->
+    <!-- Cart Sidebar -->
+    <div class="cart-overlay" id="cart-sidebar-overlay"></div>
+    <div class="cart-sidebar" id="cart-sidebar">
+      <div class="cart-header">
+        <h2>Корзина</h2>
+        <button class="close-modal" id="close-cart-btn">&times;</button>
+      </div>
+      <div class="cart-items" id="cart-items-container">
+        <!-- Cart items will be injected here -->
+        <div class="empty-cart-message">Ваша корзина пуста</div>
+      </div>
+      <div class="cart-footer">
+        <div class="cart-total">
+          <span>Итого:</span>
+          <span id="cart-total-price">$0.00</span>
+        </div>
+        <button class="btn btn-primary w-100" id="checkout-btn">Оформить заказ</button>
+      </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container"></div>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
